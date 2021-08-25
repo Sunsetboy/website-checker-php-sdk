@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace SiteCheckerSDK;
 
 use GuzzleHttp\Client;
+use SiteCheckerSDK\Dto\Job;
+use SiteCheckerSDK\Dto\JobResults;
 use SiteCheckerSDK\Dto\Website;
 
 class SiteChecker
@@ -19,7 +21,27 @@ class SiteChecker
         $this->apiKey = $apiKey;
     }
 
-    public function getWebsite(int $websiteId):Website
+    public function getWebsite(int $websiteId): Website
+    {
+
+    }
+
+    public function getWebsites(): array
+    {
+
+    }
+
+    public function createWebsite(string $url): Website
+    {
+
+    }
+
+    public function createJob(int $websiteId, array $urls): Job
+    {
+
+    }
+
+    public function getJobResults(): JobResults
     {
 
     }
