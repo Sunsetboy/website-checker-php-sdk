@@ -1,0 +1,24 @@
+{
+    "name": "sunsetboy/sitechecker_sdk",
+    "description": "Website checker PHP SDK",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sunsetboy",
+            "email": "misha.sunsetboy@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "autoload": {
+        "psr-4": {
+            "SiteCheckerSDK\\" : "src/"
+        }
+    }
+}
