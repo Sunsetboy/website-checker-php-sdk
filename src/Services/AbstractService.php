@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use SiteCheckerSDK\Exception\AccessDeniedException;
 use SiteCheckerSDK\Exception\NotFoundException;
+use SiteCheckerSDK\Exception\BadRequestException;
 
 class AbstractService
 {
@@ -33,13 +34,18 @@ class AbstractService
 
     public function getExceptionFromClientException(ClientException $clientException): \Exception
     {
-        $errorMessage = json_decode($clientException->getResponse()->getBody()->getContents(), true)['message'];
+        $exceptionBodyContentDecoded = json_decode($clientException->getResponse()->getBody()->getContents(), true);
+
+        $errorMessage = $exceptionBodyContentDecoded['message'] ?? '';
+        $errors = $exceptionBodyContentDecoded['errors'] ?? [];
 
         switch ($clientException->getCode()) {
             case 404:
                 return new NotFoundException($errorMessage, 404);
             case 403:
                 return new AccessDeniedException($errorMessage, 403);
+            case 400:
+                return new BadRequestException(!empty($errors) ? json_encode($errors) : $errorMessage, 400);
             default:
                 return $clientException;
         }
