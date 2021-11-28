@@ -36,13 +36,13 @@ class SiteChecker
     /** @var JobResultService  */
     private $jobResultService;
 
-    public function __construct(string $baseUrl, string $apiKey)
+    public function __construct(string $baseUrl, string $apiKey, int $timeout = 10)
     {
         $this->httpClient = new Client([
             // Base URI is used with relative requests
             'base_uri' => $baseUrl,
             // You can set any number of default request options.
-            'timeout' => 10.0,
+            'timeout' => $timeout,
         ]);
         $this->apiKey = $apiKey;
         $this->websiteService = new WebsiteService($this->httpClient, $this->apiKey);
@@ -66,9 +66,9 @@ class SiteChecker
 
     }
 
-    public function createJob(int $websiteId, array $urls): Job
+    public function createJob(int $websiteId, array $urls, string $sitemapUrl): Job
     {
-        return $this->jobService->create($websiteId, $urls);
+        return $this->jobService->create($websiteId, $urls, $sitemapUrl);
     }
 
     public function getJob(int $jobId): Job

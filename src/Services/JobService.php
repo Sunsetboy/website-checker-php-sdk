@@ -3,18 +3,18 @@ declare(strict_types=1);
 
 namespace SiteCheckerSDK\Services;
 
-
 use GuzzleHttp\Exception\ClientException;
 use SiteCheckerSDK\Dto\Job;
 
 class JobService extends AbstractService
 {
-    public function create(int $websiteId, array $urls): Job
+    public function create(int $websiteId, array $urls, string $sitemapUrl): Job
     {
         $requestData = [
             'websiteId' => $websiteId,
             'params' => [
                 'urls' => $urls,
+                'sitemapUrl' => $sitemapUrl,
             ]
         ];
 
